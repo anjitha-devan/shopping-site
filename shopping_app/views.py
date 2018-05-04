@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.views.generic.edit import FormView
 from django.http import HttpResponseRedirect
 from .models import *
-from .forms import SignupForm,Login
+from .forms import SignupForm,Login,ItemForm
 
 
 class IndexView(generic.TemplateView):
@@ -29,26 +29,41 @@ class LoginView(FormView):
     form_class = Login
 
     def post(self,request):
-        
         login_username = request.POST['username']
         login_password = request.POST['password']
 
         try:
-            name_obj = Signup.objects.get(username=login_username,password=login_password)
+            name_obj = Signup.objects.get(Username=login_username,Password=login_password)
         except:
             name_obj = None
         if name_obj:
-            choice_val = name_obj.choice
+            choice_val = name_obj.User_type
             if choice_val == 'SR': 
-                return HttpResponseRedirect('details')
-            else:
                 return HttpResponseRedirect('add_details')
+            else:
+                return HttpResponseRedirect('details')
         else:
             return HttpResponseRedirect('error')
 
 
 class DetailView(generic.TemplateView):
     template_name = 'shopping_app/detail.html'
+class AddDetails(FormView):
+    template_name = 'shopping_app/add_details.html'
+    form_class = ItemForm
+    success_url = 'product_success'
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+class ProductSucessView(generic.TemplateView):
+    template_name = 'shopping_app/product_success.html'
+
+class ProductListView(generic.ListView):
+    template_name = 'shopping_app/detail.html'
+    model = ItemDetails
+
 
     '''def post(self, request, args, *kwargs):
         print ("dfxghjgfchj")

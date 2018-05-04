@@ -1,0 +1,36 @@
+
+{% load static %}
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{% static 'shopping_app/detail.css' %}" />
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+<body>
+	<div class="container-fluid">
+		<div class="col-sm-11"></div>
+		<div class="col-sm-1">
+			<input type="button" value="home" onclick="window.location.href='{% url 'home' %}'" />
+		</div>
+	</div>
+	<div class="container-fluid">
+			<ul>
+			{% for detail in object_list %}
+				<div class="product-view">
+					<img class="image-size" src="{{detail.Upload_image.url}}" alt="Responsive image">
+					{{detail.Discription}}
+					{{detail.Price}}
+				</div>
+			{% endfor %}
+			</ul>
+	</div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--<script src="../js/college.js"></script> -->
+</html>

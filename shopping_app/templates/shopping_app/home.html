@@ -1,4 +1,29 @@
-<center>
-<input type="button" value="Login" onclick="" />
-<input type="button" value="Sign up" onclick="" />
-</center>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shopping_app/home.css' %}" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<body>
+
+	<div class="container-fluid">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-2">
+		    <div class="row heading text-center">
+		    	<h1>Happy Shopping<div id="logo"></div></h1>
+			</div>
+		</div>
+		<div class="col-sm-4"></div>
+		<div class="col-sm-2">
+			<input id="login_button" type="button" value="Login" onclick="window.location.href='{% url 'login' %}'" />
+			<input id="signup_button" type="button" value="Sign up" onclick="window.location.href='{% url 'sign up' %}'" />
+		</div>
+		
+	</div>
+	
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--<script src="../js/college.js"></script> -->

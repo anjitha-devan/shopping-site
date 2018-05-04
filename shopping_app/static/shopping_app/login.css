@@ -1,0 +1,20 @@
+.username{
+	
+}
+.login_form {
+    padding-top: 200px;
+}
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #c5873d;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+input[type=submit] {
+    -webkit-appearance: button;
+    cursor: pointer;
+    margin-left: 130px;
+}
