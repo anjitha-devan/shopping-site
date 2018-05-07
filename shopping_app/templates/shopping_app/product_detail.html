@@ -13,17 +13,25 @@
 		<div class="col-sm-1">
 			<input type="button" value="home" onclick="window.location.href='{% url 'home' %}'" />
 		</div>
-		<div>Welcome {{ request.user }}</div>
+		<div> {{ request.user }}</div>
 	</div>
 	<div class="container-fluid">
-			<ul>
-			{% for detail in object_list %}
-					<img class="image-size" src="{{detail.Upload_image.url}}" alt="Responsive image">
-					<a href="{% url 'productdetails' detail.pk %}" >{{detail.Discription}}</a>
-					{{detail.Price}}
-
-			{% endfor %}
-			</ul>
+				<div class="col-sm-4"></div>
+				<div class="col-sm-8">
+					<div class="product-view">
+						<img class="image-size" src="{{object.Upload_image.url}}" alt="Responsive image">
+						{{object.Discription}}
+						{{object.Price}}
+					</div>
+				</div>
+	</div>
+	<div class="container-fluid">
+				<div class="col-sm-4"></div>
+				<div class="col-sm-8">
+					<form action="https://www.flipkart.com/">
+						<input type="submit" value="buy now" />
+					</form>
+				</div>
 	</div>
 </body>
 

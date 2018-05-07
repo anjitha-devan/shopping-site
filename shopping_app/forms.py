@@ -5,7 +5,7 @@ class SignupForm(forms.ModelForm):
 
 	class Meta:
 		model = Signup
-		fields = "__all__"
+		fields = ['first_name','last_name','email','username','password','User_type']
 
 class Login(forms.Form):
 	username = forms.CharField(widget=forms.TextInput(attrs={'class' : 'username'}),label='Username', max_length=50)

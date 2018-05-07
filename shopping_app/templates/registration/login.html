@@ -1,23 +1,23 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'shopping_app/add_detail.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'shopping_app/login.css' %}" />
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <body>
 	<div class="container-fluid">
 		<div class="col-sm-4"></div>
-		<div class="col-sm-6">
-			<div>Welcome {{ request.user }}</div>
-			<form class="add_form" action="" method="post" enctype="multipart/form-data">
-			    {% csrf_token %}
-			    {{ form.as_p }}
-				<input class="submit" type="submit" value="save"  />
-			</form>
-		</div>
-		<div class="col-sm-1"></div>
-		<div class="col-sm-1">
-			<input type="button" value="logout" onclick="window.location.href='{% url 'log_out' %}'" />
+		<div class="col-sm-4">
+				<form class="login" method="POST" action="{% url 'user_login' %}">
 
+  					{% csrf_token %}
+
+  					{{form.as_p}}
+
+  					<li><input type="submit" class="logBut" value="Log in"/></li>
+  				</form>
+		</div>	
+		<div class="col-sm-3"></div>
+		<div class="col-sm-1">
 			<input type="button" value="home" onclick="window.location.href='{% url 'home' %}'" />
 		</div>
 	</div>

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from shopping_app.views import IndexView
+from shopping_app.views import IndexView,LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -23,4 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='home'),
     path('shopping_app/', include('shopping_app.urls')),
+    path('', LogoutView.as_view(), name='log_out'),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

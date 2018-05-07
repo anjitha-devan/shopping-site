@@ -69,7 +69,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'shopping.wsgi.application'
-
+AUTH_USER_MODEL = 'shopping_app.Signup'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
