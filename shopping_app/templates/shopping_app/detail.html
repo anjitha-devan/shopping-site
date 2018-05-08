@@ -1,36 +1,36 @@
+{% extends "shopping_app/base.html" %}
+	{% block content %}
+		<div class="container-fluid detail">
+			<div class="container-fluid detail">
+			<center>
+				<div id="user-detail">Welcome {{ request.user }}</div>
+			</center>
+			</div>
+			<div class="container-fluid detail">
 
-{% load static %}
-<html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="{% static 'shopping_app/detail.css' %}" />
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	</head>
-<body>
-	<div class="container-fluid">
-		<div class="col-sm-11"></div>
-		<div class="col-sm-1">
-			<input type="button" value="home" onclick="window.location.href='{% url 'home' %}'" />
+					<div class="row product-detail">
+					{% for detail in object_list %}
+
+							<div class="col-sm-4">
+								<div class="card img-fluid" >
+									<img class="card-img-top image-size" src="{{detail.Upload_image.url}}" alt="Responsive image">
+									<div class="card-img-overlay">
+										<div class="card-text"><a href="{% url 'productdetails' detail.pk %}" >{{detail.Discription}}</a></div>
+										<div>Price={{detail.Price}}</div>
+									</div>
+								</div>
+							</div>
+
+						{% if forloop.counter|divisibleby:3 %}
+							</div>
+							<div class="row">
+						{% endif %}
+					{% endfor %}
+
+					</div>
+				</ul>
+			</div>
 		</div>
-		<div>Welcome {{ request.user }}</div>
-	</div>
-	<div class="container-fluid">
-			<ul>
-			{% for detail in object_list %}
-					<img class="image-size" src="{{detail.Upload_image.url}}" alt="Responsive image">
-					<a href="{% url 'productdetails' detail.pk %}" >{{detail.Discription}}</a>
-					{{detail.Price}}
+	{% endblock %}
 
-			{% endfor %}
-			</ul>
-	</div>
-</body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<!--<script src="../js/college.js"></script> -->
-</html>

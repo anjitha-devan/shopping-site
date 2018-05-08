@@ -1,0 +1,140 @@
+.container-fluid {
+
+    background-color: #dae0d0;
+}
+#logo{
+	background-image: url(images/logo.gif);
+}
+.add_form{
+	margin-top: 150px;
+}
+.submit
+{
+	margin-left: 118px;
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    width: 114px;
+}
+.image-size{
+	height: 90px;
+	width:90px;
+}
+.product-view{
+	display:  inline-block;;
+    height: 500px;
+    width: 500px;
+    padding: 80px;
+    margin-bottom: -395px;
+    margin-left: 110px;
+}
+.login_form {
+    padding-top: 200px;
+}
+
+input[type=submit] {
+    -webkit-appearance: button;
+    cursor: pointer;
+    margin-left: 130px;
+}
+.name_form{
+	margin-top: 150px;
+}
+.submit
+{
+	margin-left: 105px;
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    width: 100px;
+}
+.add-detail{background : url();
+background-repeat: no-repeat;
+background-size: cover;
+}
+.tab{
+    margin-left: 201px;
+    }
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+   color: #1d1c1c !important;
+    margin-left: 70px !important;
+}
+textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    color : #3614bd;
+    font-size: 18px;
+}
+input[type=submit] {
+    -webkit-appearance: button;
+    cursor: pointer;
+    margin-left: 130px;
+    color: #3614bd;
+}
+#id_Upload_image
+{
+    margin: 0;
+    font: inherit;
+    color : #3614bd;
+}
+#user{
+    font-size: 27px;
+    color:black;
+}
+.add-detail
+{
+    background-color: cornsilk;
+}
+form.login
+{
+    margin-top: 210px;
+    margin-bottom: 197px;
+}
+.user-login{
+    color : red !important;
+}
+.user-login {
+    background-color: white;
+}
+.product-success
+{
+    background-color: white;
+    margin-top: 127px;
+}
+.image-size
+ {
+    width: 250px;
+}
+#user-detail{
+    font-size: 27px;
+    color:black;
+    margin-right: 141px;
+    margin-top: 24px;
+    margin-bottom: 81px;
+}
+.detail{
+     background-color: white;
+}
+
+.product-detail{
+    margin-bottom: 48px;
+}
+.item{
+    height : 500px
+}

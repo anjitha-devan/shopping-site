@@ -34,12 +34,14 @@ class UserSignup(FormView):
 class SuccessView(generic.TemplateView):
     template_name = 'shopping_app/success.html'
 
-class LogoutView(FormView):
+'''class LogoutView(FormView):
 
     def get(self, request, args, *kwargs):
         #print (self.request.user.username)
         logout(request)
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/')'''
+
+
 
 def user_login(request):
     context = RequestContext(request)
@@ -63,8 +65,9 @@ def user_login(request):
             return HttpResponse("xxx.")
     else:
         # Bad login details were provided. So we can't log the user in.
-        print ("Invalid login details: {0}, {1}".format(username, password))
-        return HttpResponse("Invalid login details supplied.")
+        # print ("Invalid login details: {0}, {1}".format(username, password))
+        # return HttpResponse("Invalid login details supplied.")
+        return render_to_response('user/profile.html', {}, context)
     '''else:
                     return render_to_response('user/profile.html', {}, context)'''
 
@@ -94,6 +97,7 @@ def user_login(request):
 '''class DetailView(generic.TemplateView):
     template_name = 'shopping_app/detail.html' '''
 # @login_required
+@method_decorator(login_required, name='dispatch')
 class AddDetails(FormView):
     template_name = 'shopping_app/add_details.html'
     form_class = ItemForm
@@ -103,13 +107,16 @@ class AddDetails(FormView):
         form.save()
         return super().form_valid(form)
 # @login_required
+@method_decorator(login_required, name='dispatch')
 class ProductSucessView(generic.TemplateView):
-    template_name = 'shopping_app/product_success.html'
+    template_name = 'shopping_app/productup_success.html'
 # @login_required
+@method_decorator(login_required, name='dispatch')
 class ProductListView(ListView):
     template_name = 'shopping_app/detail.html'
     model = ItemDetails
 # @login_required
+@method_decorator(login_required, name='dispatch')
 class ProductDetailView(DetailView):
     template_name = 'shopping_app/product_detail.html'
     model = ItemDetails

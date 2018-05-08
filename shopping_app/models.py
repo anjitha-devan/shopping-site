@@ -9,11 +9,6 @@ class Signup(AbstractUser):
 	buyer = 'BR'
 	avilable_permission=(('SR','seller'),('BR','buyer'))
 	User_type = models.CharField(max_length=2,choices=avilable_permission)
-	'''Name = models.CharField(max_length=100)
-				Email = models.EmailField()
-				Username = models.CharField(max_length=50)
-				Password = models.CharField(max_length=20)
-				User_type = models.CharField(max_length=2,choices=avilable_permission)'''
 
 
 class ItemDetails(models.Model):

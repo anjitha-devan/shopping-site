@@ -15,13 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from shopping_app.views import IndexView,LogoutView
+from shopping_app.views import IndexView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='home'),
     path('shopping_app/', include('shopping_app.urls')),
-    path('', LogoutView.as_view(), name='log_out'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
