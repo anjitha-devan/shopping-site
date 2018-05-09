@@ -9,26 +9,42 @@
 			<div class="container-fluid detail">
 
 					<div class="row product-detail">
-					{% for detail in object_list %}
+						{% if object_list%}
+							{% for detail in object_list %}
 
-							<div class="col-sm-4">
-								<div class="card img-fluid" >
-									<img class="card-img-top image-size" src="{{detail.Upload_image.url}}" alt="Responsive image">
-									<div class="card-img-overlay">
-										<div class="card-text"><a href="{% url 'productdetails' detail.pk %}" >{{detail.Discription}}</a></div>
-										<div>Price={{detail.Price}}</div>
+									<div class="col-sm-4">
+										<div class="card img-fluid" >
+											<img class="card-img-top image-size" src="{{detail.Upload_image.url}}" alt="Responsive image">
+											<div class="card-img-overlay">
+												<div class="card-text"><a href="{% url 'productdetails' detail.pk %}" >{{detail.Discription}}</a></div>
+												<div>Price={{detail.Price}}</div>
+											</div>
+										</div>
 									</div>
+
+								{% if forloop.counter|divisibleby:3 %}
+									</div>
+									<div class="row">
+								{% endif %}
+							{% endfor %}
+							{% if is_paginated %}
+								<div class="pagination">
+									<span class="page-links">
+										{% if page_obj.has_previous %}
+											<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+										{% endif %}
+										<span class="page-current">
+											Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+										</span>
+										{% if page_obj.has_next %}
+											<a href="?page={{ page_obj.next_page_number }}">next</a>
+										{% endif %}
+									</span>
 								</div>
-							</div>
-
-						{% if forloop.counter|divisibleby:3 %}
-							</div>
-							<div class="row">
+							{% endif %}
+						{% else %}
+										<p>No products found!!!</p>
 						{% endif %}
-					{% endfor %}
-
-					</div>
-				</ul>
 			</div>
 		</div>
 	{% endblock %}

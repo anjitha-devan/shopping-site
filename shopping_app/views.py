@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
+from django.template.loader import render_to_string
 from django.views import generic
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import FormView ,ListView,DetailView
+from django.views.generic import FormView ,ListView,DetailView,TemplateView
 from django.http import HttpResponseRedirect,HttpResponse
 from .models import *
 from .forms import SignupForm,Login,ItemForm
@@ -10,8 +11,9 @@ from django.template import RequestContext
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.mail import send_mail
+from django.core.signing import Signer
 
 
 class IndexView(generic.TemplateView):
@@ -25,8 +27,14 @@ class UserSignup(FormView):
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.password = make_password( obj.password )
-
+        obj.is_active = False
         form.save()
+        signer = Signer()
+        signed_value = signer.sign(obj.email)
+        key  = ''.join(signed_value.split(':')[1:])
+        reg_obj = Registration.objects.create(username=obj, key=key)
+        msg_html = render_to_string('shopping_app/email-act.html', {'key': key})
+        send_mail("123", "123",'anjitha.test@gmail.com', [obj.email], html_message=msg_html,fail_silently = True)
         return super().form_valid(form)
 
 # @login_required
@@ -96,6 +104,8 @@ def user_login(request):
 
 '''class DetailView(generic.TemplateView):
     template_name = 'shopping_app/detail.html' '''
+
+
 # @login_required
 @method_decorator(login_required, name='dispatch')
 class AddDetails(FormView):
@@ -106,18 +116,38 @@ class AddDetails(FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+
 # @login_required
 @method_decorator(login_required, name='dispatch')
 class ProductSucessView(generic.TemplateView):
     template_name = 'shopping_app/productup_success.html'
+
+
 # @login_required
 @method_decorator(login_required, name='dispatch')
 class ProductListView(ListView):
     template_name = 'shopping_app/detail.html'
     model = ItemDetails
+    paginate_by = 6
+
+
 # @login_required
 @method_decorator(login_required, name='dispatch')
 class ProductDetailView(DetailView):
     template_name = 'shopping_app/product_detail.html'
     model = ItemDetails
 
+class RegistrationSuccess(TemplateView):
+    template_name = 'shopping_app/productup_success.html'
+
+    def get(self, request, *args, **kwargs):
+        key = self.kwargs.get("key")
+        try:
+            reg_obj = Registration.objects.get(key = key)
+            reg_obj.username.is_active = True
+            reg_obj.save()
+            context = {'user': reg_obj, 'status': True}
+            return self.render_to_response(context)
+        except Registration.DoesNotExist:
+            return self.render_to_response({'status': False})

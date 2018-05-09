@@ -16,6 +16,10 @@ class ItemDetails(models.Model):
 	Discription = models.TextField(max_length=500)
 	Price = models.IntegerField()
 
+class Registration(models.Model):
+	username = models.ForeignKey(Signup,on_delete = models.CASCADE)
+	key = models.CharField(max_length=100)
+
 
 '''class ShoppingSignup(AbstractUser):
 	name = models.CharField(max_length=100, blank=True, null=True)

@@ -11,5 +11,6 @@ urlpatterns = [
     path('<int:pk>/',ProductDetailView.as_view(), name='productdetails'),
     path('add_details',AddDetails.as_view(), name='add_details'),
     path('product_success',ProductSucessView.as_view(), name='product_success'),
+    path('registration/<str:key>',  RegistrationSuccess.as_view(), name='product_success'),
 
 ]

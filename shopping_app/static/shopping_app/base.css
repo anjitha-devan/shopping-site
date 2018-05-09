@@ -19,10 +19,7 @@ label {
     font-weight: 700;
     width: 114px;
 }
-.image-size{
-	height: 90px;
-	width:90px;
-}
+
 .product-view{
 	display:  inline-block;;
     height: 500px;
@@ -120,6 +117,7 @@ form.login
 .image-size
  {
     width: 250px;
+    margin-bottom: 34px !important;
 }
 #user-detail{
     font-size: 27px;
