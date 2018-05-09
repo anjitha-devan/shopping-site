@@ -1,12 +1,12 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.views import generic
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import FormView ,ListView,DetailView,TemplateView
-from django.http import HttpResponseRedirect,HttpResponse
+from django.views.generic import FormView, ListView, DetailView, TemplateView
+from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
-from .forms import SignupForm,Login,ItemForm
+from .forms import SignupForm, Login, ItemForm
 from django.template import RequestContext
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
@@ -14,10 +14,12 @@ from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
 from django.core.signing import Signer
+import datetime
 
 
 class IndexView(generic.TemplateView):
     template_name = 'shopping_app/home.html'
+
 
 class UserSignup(FormView):
     template_name = 'shopping_app/name.html'
@@ -26,21 +28,24 @@ class UserSignup(FormView):
 
     def form_valid(self, form):
         obj = form.save(commit=False)
-        obj.password = make_password( obj.password )
+        obj.password = make_password(obj.password)
         obj.is_active = False
         form.save()
         signer = Signer()
         signed_value = signer.sign(obj.email)
-        key  = ''.join(signed_value.split(':')[1:])
+        key = ''.join(signed_value.split(':')[1:])
         reg_obj = Registration.objects.create(username=obj, key=key)
         msg_html = render_to_string('shopping_app/email-act.html', {'key': key})
-        send_mail("123", "123",'anjitha.test@gmail.com', [obj.email], html_message=msg_html,fail_silently = True)
+
+        send_mail("123", "123", 'anjitha.test@gmail.com', [obj.email], html_message=msg_html, fail_silently=False)
         return super().form_valid(form)
+
 
 # @login_required
 @method_decorator(login_required, name='dispatch')
 class SuccessView(generic.TemplateView):
     template_name = 'shopping_app/success.html'
+
 
 '''class LogoutView(FormView):
 
@@ -48,7 +53,6 @@ class SuccessView(generic.TemplateView):
         #print (self.request.user.username)
         logout(request)
         return HttpResponseRedirect('/')'''
-
 
 
 def user_login(request):
@@ -64,8 +68,8 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 signup_obj = Signup.objects.get(username=username)
-                print(signup_obj.User_type,'dfghj')
-                if signup_obj.User_type =='SR':
+                print(signup_obj.User_type, 'dfghj')
+                if signup_obj.User_type == 'SR':
                     return HttpResponseRedirect('add_details')
                 else:
                     return HttpResponseRedirect('details')
@@ -138,15 +142,18 @@ class ProductDetailView(DetailView):
     template_name = 'shopping_app/product_detail.html'
     model = ItemDetails
 
+
 class RegistrationSuccess(TemplateView):
-    template_name = 'shopping_app/productup_success.html'
+    template_name = 'shopping_app/registration-success.html'
 
     def get(self, request, *args, **kwargs):
         key = self.kwargs.get("key")
         try:
-            reg_obj = Registration.objects.get(key = key)
-            reg_obj.username.is_active = True
-            reg_obj.save()
+            reg_obj = Registration.objects.get(key=key)
+            now = datetime.datetime.now()
+            if (now > (now + datetime.timedelta(minutes = 3))):
+                reg_obj.username.is_active = True
+                reg_obj.save()
             context = {'user': reg_obj, 'status': True}
             return self.render_to_response(context)
         except Registration.DoesNotExist:

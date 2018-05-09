@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 EMAIL_USE_TLS = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'localhost'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'anjitha.test@gmail.com'
 EMAIL_HOST_PASSWORD = 'password@1234'
@@ -86,8 +88,12 @@ AUTH_USER_MODEL = 'shopping_app.Signup'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'shopping',
+        'USER': 'root',
+        'PASSWORD': 'ROOT',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
