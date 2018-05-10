@@ -1,9 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.views import generic
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import FormView, ListView, DetailView, TemplateView
+from django.views.generic import FormView, ListView, DetailView, TemplateView, CreateView, DeleteView
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from .forms import SignupForm, Login, ItemForm
@@ -34,7 +35,7 @@ class UserSignup(FormView):
         signer = Signer()
         signed_value = signer.sign(obj.email)
         key = ''.join(signed_value.split(':')[1:])
-        reg_obj = Registration.objects.create(username=obj, key=key)
+        reg_obj = Registration.objects.create(user=obj, key=key)
         msg_html = render_to_string('shopping_app/email-act.html', {'key': key})
 
         send_mail("123", "123", 'anjitha.test@gmail.com', [obj.email], html_message=msg_html, fail_silently=False)
@@ -45,14 +46,6 @@ class UserSignup(FormView):
 @method_decorator(login_required, name='dispatch')
 class SuccessView(generic.TemplateView):
     template_name = 'shopping_app/success.html'
-
-
-'''class LogoutView(FormView):
-
-    def get(self, request, args, *kwargs):
-        #print (self.request.user.username)
-        logout(request)
-        return HttpResponseRedirect('/')'''
 
 
 def user_login(request):
@@ -68,13 +61,12 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 signup_obj = Signup.objects.get(username=username)
-                print(signup_obj.User_type, 'dfghj')
                 if signup_obj.User_type == 'SR':
                     return HttpResponseRedirect('add_details')
                 else:
                     return HttpResponseRedirect('details')
         else:
-            return HttpResponse("xxx.")
+            return HttpResponse("Invalid user login")
     else:
         # Bad login details were provided. So we can't log the user in.
         # print ("Invalid login details: {0}, {1}".format(username, password))
@@ -112,21 +104,27 @@ def user_login(request):
 
 # @login_required
 @method_decorator(login_required, name='dispatch')
-class AddDetails(FormView):
+class AddDetails(CreateView):
     template_name = 'shopping_app/add_details.html'
-    form_class = ItemForm
+    model = ItemDetails
+    fields = ('Upload_image', 'Product_name', 'Discription', 'Price')
     success_url = 'product_success'
 
     def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
+        obj = form.save()
+        obj.user = self.request.user
+        return super(AddDetails, self).form_valid(form)
 
 
 # @login_required
 @method_decorator(login_required, name='dispatch')
-class ProductSucessView(generic.TemplateView):
-    template_name = 'shopping_app/productup_success.html'
+class ProductSucessView(generic.ListView):
+    template_name = 'shopping_app/uploaded-listing.html'
 
+
+    def get_queryset(self):
+
+        return ItemDetails.objects.filter(user=self.request.user)
 
 # @login_required
 @method_decorator(login_required, name='dispatch')
@@ -137,8 +135,7 @@ class ProductListView(ListView):
 
 
 # @login_required
-@method_decorator(login_required, name='dispatch')
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin,DetailView):
     template_name = 'shopping_app/product_detail.html'
     model = ItemDetails
 
@@ -151,10 +148,16 @@ class RegistrationSuccess(TemplateView):
         try:
             reg_obj = Registration.objects.get(key=key)
             now = datetime.datetime.now()
-            if (now > (now + datetime.timedelta(minutes = 3))):
-                reg_obj.username.is_active = True
+            if (now > (now + datetime.timedelta(minutes=3))):
+                reg_obj.user.is_active = True
                 reg_obj.save()
             context = {'user': reg_obj, 'status': True}
             return self.render_to_response(context)
         except Registration.DoesNotExist:
             return self.render_to_response({'status': False})
+
+
+class DeleteProduct(DeleteView):
+    model = ItemDetails
+    success_url = '/product_success/'
+

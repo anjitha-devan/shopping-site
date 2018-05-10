@@ -89,7 +89,7 @@ AUTH_USER_MODEL = 'shopping_app.Signup'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'shopping',
+        'NAME': 'shopping1',
         'USER': 'root',
         'PASSWORD': 'ROOT',
         'HOST': 'localhost',

@@ -17,9 +17,12 @@
 											<div class="card img-fluid" >
 												<img class="card-img-top image-size" src="{{detail.Upload_image.url}}" alt="Responsive image">
 												<div class="card-img-overlay">
-													<div>{{detail.Product_name}}</div>
-													<div class="card-text"><a href="{% url 'productdetails' detail.pk %}" >{{detail.Discription}}</a></div>
+                                                    <div class="card-text">
+                                                        <div>{{detail.Product_name}}</div>
+                                                        <div>{{detail.Discription}}</div>
+                                                    </div>
 													<div>Price={{detail.Price}}</div>
+													<input type="button" class="button" value="delete" onclick="window.location.href='{% url 'delete' detail.pk %}'" />
 												</div>
 											</div>
 										</center>

@@ -1,0 +1,20 @@
+{% extends "shopping_app/base.html" %}
+	{% block content %}
+		<div class="container-fluid detail">
+			<div class="container-fluid detail">
+			<center>
+				<div id="user-detail">Welcome {{ request.user }}</div>
+			</center>
+			</div>
+			<div class="container-fluid detail">
+
+					<div class="row product-detail">
+                        <form method="post">{% csrf_token %}
+                            <div>do you want to delete? {{object}}</div>
+                            <input type="submit" value="Yes" />
+                            <input type="submit" value="No" />
+                        </form>
+                    </div>
+            </div>
+        </div>
+    {% endblock %}

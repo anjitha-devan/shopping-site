@@ -14,20 +14,24 @@
 		</div>
 
             <div class="container-fluid">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-3 tab">
-                    {% if request.user.is_authenticated %}
-                        <input type="button" value="home" onclick="window.location.href='{% url 'home' %}'" />
-                        <input type="button" value="logout" onclick="window.location.href='{% url 'logout' %}'" />
-                        {% if request.user.User_type == 'SR' %}
-                             <input type="button" value="add_details" onclick="window.location.href='{% url 'add_details' %}'" />
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3 tab">
+                        <input type="button" class="button" value="home" onclick="window.location.href='{% url 'home' %}'" />
+                        {% if request.user.is_authenticated %}
+
+                            <input type="button" class="button" value="logout" onclick="window.location.href='{% url 'logout' %}'" />
+                            {% if request.user.User_type == 'SR' %}
+                                 <input type="button" class="button" value="add_details" onclick="window.location.href='{% url 'add_details' %}'" />
+                            {% else %}
+                                <input type="button" class="button" value="details" onclick="window.location.href='{% url 'details' %}'" />
+                            {% endif %}
                         {% else %}
-                            <input type="button" value="details" onclick="window.location.href='{% url 'details' %}'" />
+                             <input id="signup_button" type="button" class="button" value="Sign up" onclick="window.location.href='{% url 'sign up' %}'" />
+                            <input id="login_button" type="button" class="button" value="Login" onclick="window.location.href='{% url 'login' %}'" />
                         {% endif %}
-                    {% else %}
-                        <input id="login_button" type="button" value="Login" onclick="window.location.href='{% url 'login' %}'" />
-                    {% endif %}
-                    <input id="signup_button" type="button" value="Sign up" onclick="window.location.href='{% url 'sign up' %}'" />
+
+                    </div>
                 </div>
             </div>
         {% block content %}
