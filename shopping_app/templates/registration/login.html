@@ -1,17 +1,17 @@
 {% extends "shopping_app/base.html" %}
-	{% block content %}
-		<div class="container-fluid user-login">
-			<div class="col-sm-4"></div>
-			<div class="col-sm-4">
-					<form class="login" method="POST" action="{% url 'user_login' %}">
+{% block content %}
+<div class="container-fluid user-login">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <form class="login" method="POST" action="{% url 'user_login' %}">
 
-						{% csrf_token %}
+            {% csrf_token %}
 
-						{{form.as_p}}
+            {{form.as_p}}
 
-						<input type="submit" class="logBut" value="Log in"/>
-					</form>
-			</div>
-			<div class="col-sm-4"></div>
-		</div>
-	{% endblock %}
+            <input type="submit" class="logBut" value="Log in"/>
+        </form>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+{% endblock %}

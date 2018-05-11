@@ -25,4 +25,3 @@ class ItemDetails(models.Model):
 class Registration(models.Model):
     user = models.ForeignKey(Signup, on_delete=models.CASCADE)
     key = models.CharField(max_length=100)
-

@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.views import generic
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import FormView, ListView, DetailView, TemplateView, CreateView, DeleteView
+from django.views.generic import FormView, ListView, DetailView, TemplateView, CreateView, DeleteView, UpdateView
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from .forms import SignupForm, Login, ItemForm
@@ -16,6 +16,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
 from django.core.signing import Signer
 import datetime
+from django.urls import reverse_lazy
+from braces.views import LoginRequiredMixin, PermissionRequiredMixin
+from shopping_app.mixin import ActiveOnlyMixin
 
 
 class IndexView(generic.TemplateView):
@@ -25,7 +28,7 @@ class IndexView(generic.TemplateView):
 class UserSignup(FormView):
     template_name = 'shopping_app/name.html'
     form_class = SignupForm
-    success_url = 'successfull'
+    success_url = 'login'
 
     def form_valid(self, form):
         obj = form.save(commit=False)
@@ -43,8 +46,8 @@ class UserSignup(FormView):
 
 
 # @login_required
-@method_decorator(login_required, name='dispatch')
-class SuccessView(generic.TemplateView):
+# @method_decorator(login_required, name='dispatch')
+class SuccessView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'shopping_app/success.html'
 
 
@@ -103,8 +106,8 @@ def user_login(request):
 
 
 # @login_required
-@method_decorator(login_required, name='dispatch')
-class AddDetails(CreateView):
+# @method_decorator(login_required, name='dispatch')
+class AddDetails(LoginRequiredMixin, ActiveOnlyMixin, CreateView):
     template_name = 'shopping_app/add_details.html'
     model = ItemDetails
     fields = ('Upload_image', 'Product_name', 'Discription', 'Price')
@@ -117,17 +120,17 @@ class AddDetails(CreateView):
 
 
 # @login_required
-@method_decorator(login_required, name='dispatch')
-class ProductSucessView(generic.ListView):
+# @method_decorator(login_required, name='dispatch')
+class ProductSucessView(LoginRequiredMixin, ActiveOnlyMixin, generic.ListView):
     template_name = 'shopping_app/uploaded-listing.html'
-
+    paginate_by = 6
 
     def get_queryset(self):
-
         return ItemDetails.objects.filter(user=self.request.user)
 
+
 # @login_required
-@method_decorator(login_required, name='dispatch')
+# @method_decorator(login_required, name='dispatch')
 class ProductListView(ListView):
     template_name = 'shopping_app/detail.html'
     model = ItemDetails
@@ -135,7 +138,7 @@ class ProductListView(ListView):
 
 
 # @login_required
-class ProductDetailView(LoginRequiredMixin,DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     template_name = 'shopping_app/product_detail.html'
     model = ItemDetails
 
@@ -147,17 +150,22 @@ class RegistrationSuccess(TemplateView):
         key = self.kwargs.get("key")
         try:
             reg_obj = Registration.objects.get(key=key)
-            now = datetime.datetime.now()
-            if (now > (now + datetime.timedelta(minutes=3))):
-                reg_obj.user.is_active = True
-                reg_obj.save()
+            obj = Signup.objects.get(id=reg_obj.user_id)
+            obj.is_active = True
+            obj.save()
             context = {'user': reg_obj, 'status': True}
             return self.render_to_response(context)
         except Registration.DoesNotExist:
             return self.render_to_response({'status': False})
 
 
-class DeleteProduct(DeleteView):
+class DeleteProduct(LoginRequiredMixin, ActiveOnlyMixin, DeleteView):
     model = ItemDetails
-    success_url = '/product_success/'
+    success_url = reverse_lazy('product_success')
 
+
+class EditProduct(LoginRequiredMixin, ActiveOnlyMixin, UpdateView):
+    template_name = 'shopping_app/edit-product.html'
+    model = ItemDetails
+    fields = ['Upload_image', 'Product_name', 'Discription', 'Price']
+    success_url = reverse_lazy('product_success')

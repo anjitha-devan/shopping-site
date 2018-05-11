@@ -26,4 +26,5 @@ urlpatterns = [
     path('', IndexView.as_view(), name='home'),
     path('shopping_app/', include('shopping_app.urls')),
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
+    path('r^oauth/', include('social_django.urls', namespace='social')),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

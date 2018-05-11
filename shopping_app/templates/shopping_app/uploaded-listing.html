@@ -1,65 +1,68 @@
 {% extends "shopping_app/base.html" %}
-	{% block content %}
-		<div class="container-fluid detail">
-			<div class="container-fluid detail">
-			<center>
-				<div id="user-detail">Welcome {{ request.user }}</div>
-			</center>
-			</div>
-			<div class="container-fluid detail">
+{% block content %}
+<div class="container-fluid detail">
+    <div class="container-fluid detail">
+        <center>
+            <div id="user-detail">Welcome {{ request.user }}</div>
+        </center>
+    </div>
+    <div class="container-fluid detail">
 
-					<div class="row product-detail">
-						{% if object_list%}
-							{% for detail in object_list %}
+        <div class="row product-detail">
+            {% if object_list%}
+            {% for detail in object_list %}
 
-									<div class="col-sm-4">
-										<center>
-											<div class="card img-fluid" >
-												<img class="card-img-top image-size" src="{{detail.Upload_image.url}}" alt="Responsive image">
-												<div class="card-img-overlay">
-                                                    <div class="card-text">
-                                                        <div>{{detail.Product_name}}</div>
-                                                        <div>{{detail.Discription}}</div>
-                                                    </div>
-													<div>Price={{detail.Price}}</div>
-													<input type="button" class="button" value="delete" onclick="window.location.href='{% url 'delete' detail.pk %}'" />
-												</div>
-											</div>
-										</center>
-									</div>
+            <div class="col-sm-4">
+                <center>
+                    <div class="card img-fluid">
+                        <img class="card-img-top image-size" src="{{detail.Upload_image.url}}" alt="Responsive image">
+                        <div class="card-img-overlay">
+                            <div class="card-text">
+                                <div>{{detail.Product_name}}</div>
+                                <div>{{detail.Discription}}</div>
+                            </div>
+                            <div>Price={{detail.Price}}</div>
+                            <input type="button" class="button" value="delete"
+                                   onclick="window.location.href='{% url 'delete' detail.pk %}'"/>
+                            <input type="button" class="button" value="edit"
+                                   onclick="window.location.href='{% url 'edit' detail.pk %}'"/>
+                        </div>
+                    </div>
+                </center>
+            </div>
 
-								{% if forloop.counter|divisibleby:3 %}
-									</div>
-									<div class="row">
-								{% endif %}
-							{% endfor %}
-										<div class="container-fluid>
-											<div class="row">
-												<div class="col-sm-10"></div>
-												<div class="col-sm-2">
-													{% if is_paginated %}
-														<div class="pagination">
-															<span class="page-links">
-																{% if page_obj.has_previous %}
-																	<a href="?page={{ page_obj.previous_page_number }}">previous</a>
-																{% endif %}
-																<span class="page-current">
-																	Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-																</span>
-																{% if page_obj.has_next %}
-																	<a href="?page={{ page_obj.next_page_number }}">next</a>
-																{% endif %}
-															</span>
-														</div>
-													{% endif %}
-												</div>
-											</div>
-										</div>
-						{% else %}
-										<p>No products found!!!</p>
-						{% endif %}
-			</div>
-		</div>
-	{% endblock %}
+            {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <div class="row">
+            {% endif %}
+            {% endfor %}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-10"></div>
+                    <div class="col-sm-2">
+                        {% if is_paginated %}
+                        <div class="pagination">
+                            <span class="page-links">
+                                {% if page_obj.has_previous %}
+                                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                                {% endif %}
+                                <span class="page-current">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                </span>
+                                {% if page_obj.has_next %}
+                                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <p>No products found!!!</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
 
 

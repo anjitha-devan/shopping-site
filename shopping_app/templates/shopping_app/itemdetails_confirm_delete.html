@@ -1,20 +1,32 @@
 {% extends "shopping_app/base.html" %}
-	{% block content %}
-		<div class="container-fluid detail">
-			<div class="container-fluid detail">
-			<center>
-				<div id="user-detail">Welcome {{ request.user }}</div>
-			</center>
-			</div>
-			<div class="container-fluid detail">
+{% block content %}
+<div class="container-fluid detail">
+    <div class="container-fluid detail">
+        <center>
+            <div id="user-detail">Welcome {{ request.user }}</div>
+        </center>
+    </div>
+    <div class="container-fluid detail">
 
-					<div class="row product-detail">
-                        <form method="post">{% csrf_token %}
-                            <div>do you want to delete? {{object}}</div>
-                            <input type="submit" value="Yes" />
-                            <input type="submit" value="No" />
-                        </form>
-                    </div>
-            </div>
+        <div class="row product-detail">
+            <form method="post">{% csrf_token %}
+                <center>
+                    <div><h3>Do you want to delete {{object}} ?</h3></div>
+                    <input type="submit" id="delete" value="Yes"/>
+                    <input type="button" value="no" onclick="window.location.href='{% url 'product_success' %}'"
+                </center>
+            </form>
         </div>
-    {% endblock %}
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+        $('#delete').on('click', function () {
+           alert("The selected item must be deleted")
+
+        });
+
+</script>
+
+{% endblock js %}

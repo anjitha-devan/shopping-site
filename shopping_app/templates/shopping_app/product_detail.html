@@ -1,28 +1,30 @@
 {% extends "shopping_app/base.html" %}
-	{% block content %}
+{% block content %}
 
 
-		<div class="container-fluid detail">
-			<center>
-				<div id="user-detail">Welcome {{ request.user }}</div>
-			</center>
-		</div>
-		<div class="container-fluid detail">
-					<div class="row">
-						<div class="col-sm-4"></div>
-						<div class="col-sm-8">
-							<div class="card img-fluid" >
-										<img class="card-img-top image-size" src="{{object.Upload_image.url}}" alt="Responsive image">
-										<div class="card-img-overlay">
-											<div>{{detail.Product_name}}</div>
-											<div class="card-text">{{object.Discription}}</div>
-											<div>Price={{object.Price}}</div>
-										</div>
-							</div>
-							<div><form action="https://www.flipkart.com/">
-								<input type="submit" value="buy now" />
-							</form></div>
-						</div>
-					</div>
-		</div>
-	{% endblock %}
+<div class="container-fluid detail">
+    <center>
+        <div id="user-detail">Welcome {{ request.user }}</div>
+    </center>
+</div>
+<div class="container-fluid detail">
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-8">
+            <div class="card img-fluid">
+                <img class="card-img-top image-size" src="{{object.Upload_image.url}}" alt="Responsive image">
+                <div class="card-img-overlay">
+                    <div>{{detail.Product_name}}</div>
+                    <div class="card-text">{{object.Discription}}</div>
+                    <div>Price={{object.Price}}</div>
+                </div>
+            </div>
+            <div>
+                <form action="https://www.flipkart.com/">
+                    <input type="submit" value="buy now"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

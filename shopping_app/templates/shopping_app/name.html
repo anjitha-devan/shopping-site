@@ -1,19 +1,29 @@
 {% extends "shopping_app/base.html" %}
-	 {% block content %}
-		<div class="container-fluid signup">
-			<div class="col-sm-4"></div>
-			<div class="col-sm-4">
-				<form class="name_form" action="" method="post">
-					{% csrf_token %}
-					{{ form.as_p }}
-					<input class="submit" type="submit" value="Submit"  />
-				</form>
-			</div>
-			<div class="col-sm-3"></div>
-			<div class="col-sm-1">
+{% block content %}
+<div class="container-fluid signup">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <form class="name_form" action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input class="submit" type="submit" value="Submit"/>
+        </form>
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-1">
 
-			</div>
-		</div>
-	{% endblock %}
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+        $('.submit').on('click', function () {
+           alert("check the registered email id and click on the activation link to activate registration")
+
+        });
+
+</script>
+
+{% endblock js %}
 
 
