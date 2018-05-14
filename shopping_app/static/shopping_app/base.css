@@ -156,3 +156,15 @@ background-color : white !important;
     background-color: blue;
     color: white;
 }
+. fa-facebook {
+    color: #142eb1; !important;
+
+}
+.fab {
+    font-family: Font Awesome\ 5 Brands;
+    font-size: 25px !important;;
+}
+#login-icons
+{
+    color: #26269c;
+}

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 
     'social_django',
     'shopping_app',
+    'sslserver'
 ]
 
 MIDDLEWARE = [
@@ -94,7 +95,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
-
+    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -154,5 +155,12 @@ LOGIN_REDIRECT_URL = 'details'
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
 SOCIAL_AUTH_GITHUB_KEY = '0ff6cf159d976e90f771'
 SOCIAL_AUTH_GITHUB_SECRET = 'a5f0af17e3b5811d200349b923eb8770620662cc'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '357606172537-80g83ged6eb5237ns31b9r0nt0naghak.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'I20Vu4the1BQdoQCJhnUlxWX'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '453401451783322'
+SOCIAL_AUTH_FACEBOOK_SECRET = '4640057afea5f566570725bf07f6dec6'

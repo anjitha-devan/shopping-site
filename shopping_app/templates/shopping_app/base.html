@@ -3,12 +3,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 <body>
 
 <div class="container-fluid">
     <div class="col-sm-3">
-        <input type="button" class="button" value="GitHub login"
-               onclick="window.location.href='{% url 'social:begin' 'github' %}'"/>
+
     </div>
     <div class="col-sm-4">
         <div class="row heading text-center">
@@ -46,6 +46,9 @@
                        onclick="window.location.href='{% url 'sign up' %}'"/>
                 <input id="login_button" type="button" class="button" value="Login"
                        onclick="window.location.href='{% url 'login' %}'"/>
+                <a id= "login-icons" href="{% url 'social:begin' 'google-oauth2' %}"><i class="fab fa-google"></i></a>
+                <a id= "login-icons" href="{% url 'social:begin' 'github' %}"><i class="fab fa-github"></i></a>
+                <a id= "login-icons" href="{% url 'social:begin' 'facebook' %}"><i class="fab fa-facebook"></i></a>
                 {% endif %}
 
             </div>
