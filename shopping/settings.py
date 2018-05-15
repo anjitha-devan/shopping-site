@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
+import os
 
 EMAIL_USE_TLS = True
 
@@ -22,11 +23,8 @@ EMAIL_HOST_PASSWORD = 'password@1234'
 
 DEFAULT_FROM_EMAIL = 'anjitha.test@gmail.com'
 
-import os
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -38,7 +36,6 @@ SECRET_KEY = 'o$=!y+2gy*a$6#0c1u-0&kh@yv*s0ai&mp3n8jm&%u@u!p(so&'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -52,7 +49,7 @@ INSTALLED_APPS = [
 
     'social_django',
     'shopping_app',
-    'sslserver'
+    'sslserver',
 ]
 
 MIDDLEWARE = [
@@ -113,7 +110,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
@@ -132,7 +128,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -145,7 +140,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -164,3 +158,4 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'I20Vu4the1BQdoQCJhnUlxWX'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '453401451783322'
 SOCIAL_AUTH_FACEBOOK_SECRET = '4640057afea5f566570725bf07f6dec6'
+SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.8'

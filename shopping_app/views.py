@@ -75,36 +75,8 @@ def user_login(request):
         # print ("Invalid login details: {0}, {1}".format(username, password))
         # return HttpResponse("Invalid login details supplied.")
         return render_to_response('user/profile.html', {}, context)
-    '''else:
-                    return render_to_response('user/profile.html', {}, context)'''
 
-
-'''class LoginView(FormView):
-    template_name = 'shopping_app/login.html'
-    form_class = Login
-
-    def post(self,request):
-        login_username = request.POST['username']
-        login_password = request.POST['password']
-
-        try:
-            name_obj = Signup.objects.get(Username=login_username,Password=login_password)
-        except:
-            name_obj = None
-        if name_obj:
-            choice_val = name_obj.User_type
-            if choice_val == 'SR': 
-                return HttpResponseRedirect('add_details')
-            else:
-                return HttpResponseRedirect('details')
-        else:
-            return HttpResponseRedirect('error')
-'''
-
-'''class DetailView(generic.TemplateView):
-    template_name = 'shopping_app/detail.html' '''
-
-
+path('accounts/', include('django.contrib.auth.urls')),
 # @login_required
 # @method_decorator(login_required, name='dispatch')
 class AddDetails(LoginRequiredMixin, ActiveOnlyMixin, CreateView):

@@ -46,9 +46,9 @@
                        onclick="window.location.href='{% url 'sign up' %}'"/>
                 <input id="login_button" type="button" class="button" value="Login"
                        onclick="window.location.href='{% url 'login' %}'"/>
-                <a id= "login-icons" href="{% url 'social:begin' 'google-oauth2' %}"><i class="fab fa-google"></i></a>
-                <a id= "login-icons" href="{% url 'social:begin' 'github' %}"><i class="fab fa-github"></i></a>
-                <a id= "login-icons" href="{% url 'social:begin' 'facebook' %}"><i class="fab fa-facebook"></i></a>
+                <a class= "login-icons" href="{% url 'social:begin' 'google-oauth2' %}"><i class="fab fa-google"></i></a>
+                <a class= "login-icons" href="{% url 'social:begin' 'github' %}"><i class="fab fa-github"></i></a>
+                <a class= "login-icons" href="{% url 'social:begin' 'facebook' %}"><i class="fab fa-facebook"></i></a>
                 {% endif %}
 
             </div>
@@ -104,6 +104,6 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 {% block js %}
 {% endblock js %}
