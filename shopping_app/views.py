@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.template.loader import render_to_string
 from django.views import generic
 from django.contrib.auth import authenticate, login
@@ -76,7 +76,7 @@ def user_login(request):
         # return HttpResponse("Invalid login details supplied.")
         return render_to_response('user/profile.html', {}, context)
 
-path('accounts/', include('django.contrib.auth.urls')),
+
 # @login_required
 # @method_decorator(login_required, name='dispatch')
 class AddDetails(LoginRequiredMixin, ActiveOnlyMixin, CreateView):
